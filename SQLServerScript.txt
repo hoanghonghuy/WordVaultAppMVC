@@ -1,0 +1,138 @@
+USE [WordVaultDb]
+GO
+/****** Object:  Table [dbo].[FavoriteWords]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FavoriteWords](
+	[VocabularyId] [int] NOT NULL,
+	[DateAdded] [datetime] NULL,
+ CONSTRAINT [PK_FavoriteWords] PRIMARY KEY CLUSTERED 
+(
+	[VocabularyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[LearningStatuses]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LearningStatuses](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[WordId] [nvarchar](50) NOT NULL,
+	[UserId] [nvarchar](50) NULL,
+	[Status] [nvarchar](50) NOT NULL,
+	[DateLearned] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[QuizQuestions]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[QuizQuestions](
+	[QuizId] [int] IDENTITY(1,1) NOT NULL,
+	[QuestionText] [nvarchar](1000) NOT NULL,
+	[Option1] [nvarchar](500) NOT NULL,
+	[Option2] [nvarchar](500) NOT NULL,
+	[Option3] [nvarchar](500) NOT NULL,
+	[Option4] [nvarchar](500) NOT NULL,
+	[CorrectOption] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[QuizId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[QuizResults]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[QuizResults](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[QuizId] [int] NOT NULL,
+	[IsCorrect] [bit] NOT NULL,
+	[DateTaken] [datetime] NOT NULL,
+	[UserId] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Topics]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Topics](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Vocabulary]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vocabulary](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Word] [nvarchar](100) NOT NULL,
+	[Meaning] [nvarchar](500) NOT NULL,
+	[Pronunciation] [nvarchar](100) NULL,
+	[AudioUrl] [nvarchar](300) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[VocabularyTopic]    Script Date: 2025-04-21 19:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VocabularyTopic](
+	[VocabularyId] [int] NOT NULL,
+	[TopicId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[VocabularyId] ASC,
+	[TopicId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[FavoriteWords] ADD  DEFAULT (getdate()) FOR [DateAdded]
+GO
+ALTER TABLE [dbo].[FavoriteWords]  WITH CHECK ADD  CONSTRAINT [FK_FavoriteWords_Vocabulary] FOREIGN KEY([VocabularyId])
+REFERENCES [dbo].[Vocabulary] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FavoriteWords] CHECK CONSTRAINT [FK_FavoriteWords_Vocabulary]
+GO
+ALTER TABLE [dbo].[QuizResults]  WITH CHECK ADD  CONSTRAINT [FK_QuizResults_QuizQuestions] FOREIGN KEY([QuizId])
+REFERENCES [dbo].[QuizQuestions] ([QuizId])
+GO
+ALTER TABLE [dbo].[QuizResults] CHECK CONSTRAINT [FK_QuizResults_QuizQuestions]
+GO
+ALTER TABLE [dbo].[VocabularyTopic]  WITH CHECK ADD  CONSTRAINT [FK_VocabularyTopic_Topics] FOREIGN KEY([TopicId])
+REFERENCES [dbo].[Topics] ([Id])
+GO
+ALTER TABLE [dbo].[VocabularyTopic] CHECK CONSTRAINT [FK_VocabularyTopic_Topics]
+GO
+ALTER TABLE [dbo].[VocabularyTopic]  WITH CHECK ADD  CONSTRAINT [FK_VocabularyTopic_Vocabulary] FOREIGN KEY([VocabularyId])
+REFERENCES [dbo].[Vocabulary] ([Id])
+GO
+ALTER TABLE [dbo].[VocabularyTopic] CHECK CONSTRAINT [FK_VocabularyTopic_Vocabulary]
+GO

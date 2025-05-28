@@ -1,0 +1,31 @@
+﻿using System.Collections.Generic;
+using System.Reflection.Emit;
+
+public class AppDbContext : DbContext
+{
+    public DbSet<Vocabulary> Vocabularies { get; set; }
+    public DbSet<Topic> Topics { get; set; }
+    public DbSet<VocabularyTopic> VocabularyTopics { get; set; }
+    public DbSet<QuizResult> QuizResults { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("your_connection_string_here");
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<VocabularyTopic>()
+            .HasKey(vt => new { vt.VocabularyId, vt.TopicId });
+
+        modelBuilder.Entity<VocabularyTopic>()
+            .HasOne(vt => vt.Vocabulary)
+            .WithMany(v => v.VocabularyTopics)
+            .HasForeignKey(vt => vt.VocabularyId);
+
+        modelBuilder.Entity<VocabularyTopic>()
+            .HasOne(vt => vt.Topic)
+            .WithMany(t => t.VocabularyTopics)
+            .HasForeignKey(vt => vt.TopicId);
+    }
+}
