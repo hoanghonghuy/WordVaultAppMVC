@@ -29,62 +29,56 @@ Welcome to WordVault, a personal dictionary application built with C# and Window
 
 WordVaultAppMVC/
 │
-├── 📁 Controllers/           # Handles logic, coordination between View and Data/Service
+├── 📁 Controllers/         # Handles logic, coordination between View and Data/Service
 │   ├── VocabularyController.cs
 │   ├── TopicController.cs
 │   ├── QuizController.cs
 │   └── LearningController.cs
 │
-├── 📁 Views/                 # Contains all user interface components
+├── 📁 Views/               # Contains all user interface components
 │   │
-│   ├── 📁 Controls/          # UserControls (reusable small UI components)
-│   │   ├── HomeControl.cs             # Main screen (search, display)
-│   │   ├── TopicVocabularyControl.cs  # Manage words by topic
-│   │   ├── FavoriteWordsControl.cs    # Show favorite words
-│   │   ├── DailyReviewControl.cs      # Daily flashcard review
-│   │   ├── ShuffleStudyControl.cs     # Random study (flashcard)
-│   │   ├── QuizControl.cs             # Quiz functionality
-│   │   ├── SettingsControl.cs         # App settings
-│   │   └── VocabularyDetailPanel.cs   # Word detail panel
+│   ├── 📁 Controls/        # UserControls (reusable small UI components)
+│   │   ├── HomeControl.cs
+│   │   ├── TopicVocabularyControl.cs
+│   │   ├── FavoriteWordsControl.cs
+│   │   ├── DailyReviewControl.cs
+│   │   ├── ShuffleStudyControl.cs
+│   │   ├── QuizControl.cs
+│   │   ├── SettingsControl.cs
+│   │   └── VocabularyDetailPanel.cs
 │   │
-│   └── 📁 Forms/             # Main or sub dialog forms
-│       ├── MainForm.cs                # Main form hosting all controls
-│       ├── AddToTopicForm.cs         # Dialog form to add words to topic
-│       ├── VocabularyListForm.cs     # Form to display lists (rarely used)
-│       ├── ResultSummaryForm.cs      # Form to show quiz results
-│       └── EditVocabularyForm.cs     # Form to edit vocabulary
+│   └── 📁 Forms/           # Main or sub dialog forms
+│       ├── MainForm.cs
+│       ├── AddToTopicForm.cs
+│       ├── VocabularyListForm.cs
+│       ├── ResultSummaryForm.cs
+│       └── EditVocabularyForm.cs
 │
-├── 📁 Models/                # Data objects (POCO)
+├── 📁 Models/              # Data objects (POCO)
 │   ├── Vocabulary.cs
 │   ├── Topic.cs
-│   ├── VocabularyTopic.cs     # Intermediate table model
-│   ├── LearningStatus.cs
-│   ├── QuizResult.cs
-│   └── WordDetails.cs         # Model for API response data
+│   └── ...
 │
-├── 📁 Data/                  # Data access (Repositories, DbContext)
-│   ├── DatabaseContext.cs       # DB connection management
-│   ├── VocabularyRepository.cs  # CRUD for vocabulary, handle favorites
-│   ├── TopicRepository.cs       # CRUD for topics, word-topic relations
-│   ├── QuizRepository.cs
-│   └── LearningStatusRepository.cs
+├── 📁 Data/                # Data access (Repositories)
+│   ├── DatabaseContext.cs
+│   ├── VocabularyRepository.cs
+│   ├── TopicRepository.cs
+│   └── ...
 │
-├── 📁 Services/              # Business logic (Backup/Restore, Random word retrieval)
+├── 📁 Services/            # Business logic (Backup/Restore, etc.)
 │   ├── VocabularyService.cs
 │   └── DataService.cs
 │
-├── 📁 Helpers/               # Utility classes
-│   ├── AudioHelper.cs           # Audio playback support (WMPLib)
-│   └── DictionaryApiClient.cs   # Interact with dictionary API (Newtonsoft.Json)
+├── 📁 Helpers/             # Utility classes
+│   ├── AudioHelper.cs
+│   └── DictionaryApiClient.cs
 │
-├── 📁 Resources/             # Store resources (icons, images, sounds...)
-│   └── (Empty or contains your resources)
+├── 📁 Resources/           # Store resources (icons, images, sounds...)
 │
-├── 📄 Program.cs             # Application entry point
-├── 📄 App.config             # Contains connection string and other settings
-├── 📄 Settings.settings      # User settings file
-├── 📄 Settings.Designer.cs   # Code-behind for Settings.settings
+├── 📄 Program.cs           # Application entry point
+├── 📄 App.config           # Contains connection string and other settings
 └── 📄 WordVaultAppMVC.csproj # Project file
+
 
 ## Technologies Used
 
