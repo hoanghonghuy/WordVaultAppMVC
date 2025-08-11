@@ -25,61 +25,6 @@ Welcome to WordVault, a personal dictionary application built with C# and Window
     * Data management: Backup, Restore database, Clear learning history.
 * **Responsive UI:** Main screens use `TableLayoutPanel` and `FlowLayoutPanel` for better resizing behavior.
 
-## Project Structure
-
-WordVaultAppMVC/
-│
-├── 📁 Controllers/         # Handles logic, coordination between View and Data/Service
-│   ├── VocabularyController.cs
-│   ├── TopicController.cs
-│   ├── QuizController.cs
-│   └── LearningController.cs
-│
-├── 📁 Views/               # Contains all user interface components
-│   │
-│   ├── 📁 Controls/        # UserControls (reusable small UI components)
-│   │   ├── HomeControl.cs
-│   │   ├── TopicVocabularyControl.cs
-│   │   ├── FavoriteWordsControl.cs
-│   │   ├── DailyReviewControl.cs
-│   │   ├── ShuffleStudyControl.cs
-│   │   ├── QuizControl.cs
-│   │   ├── SettingsControl.cs
-│   │   └── VocabularyDetailPanel.cs
-│   │
-│   └── 📁 Forms/           # Main or sub dialog forms
-│       ├── MainForm.cs
-│       ├── AddToTopicForm.cs
-│       ├── VocabularyListForm.cs
-│       ├── ResultSummaryForm.cs
-│       └── EditVocabularyForm.cs
-│
-├── 📁 Models/              # Data objects (POCO)
-│   ├── Vocabulary.cs
-│   ├── Topic.cs
-│   └── ...
-│
-├── 📁 Data/                # Data access (Repositories)
-│   ├── DatabaseContext.cs
-│   ├── VocabularyRepository.cs
-│   ├── TopicRepository.cs
-│   └── ...
-│
-├── 📁 Services/            # Business logic (Backup/Restore, etc.)
-│   ├── VocabularyService.cs
-│   └── DataService.cs
-│
-├── 📁 Helpers/             # Utility classes
-│   ├── AudioHelper.cs
-│   └── DictionaryApiClient.cs
-│
-├── 📁 Resources/           # Store resources (icons, images, sounds...)
-│
-├── 📄 Program.cs           # Application entry point
-├── 📄 App.config           # Contains connection string and other settings
-└── 📄 WordVaultAppMVC.csproj # Project file
-
-
 ## Technologies Used
 
 * **Language:** C#
